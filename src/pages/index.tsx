@@ -1,9 +1,79 @@
 import Head from 'next/head'
+import { useState } from 'react'
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
 
+import testImg from '../../public/unsplashPhoto.jpeg'
+
 const inter = Inter({ subsets: ['latin'] })
+
+type ListingCardProps = {
+  name: string
+  location: string
+  dates: string
+  price: string
+  images: string[]
+}
+
+export function Carousel() {
+  const [currentSlide, setCurrentSlide] = useState(0)
+
+  return (
+    <div id="default-carousel" className={"relative"} data-carousel="static">
+        {/* <!-- Carousel wrapper --> */}
+        <div className={"relative overflow-hidden rounded-lg aspect-square"}>
+            {/* <!-- Item 1 --> */}
+            <div className={"duration-700 ease-in-out object-cover aspect-square"} data-carousel-item>
+                <Image fill style={{objectFit: "cover"}} src={'https://source.unsplash.com/random/800x800/?img=1'} className={"absolute block object-cover aspect-square"} alt="..." />
+            </div>
+            {/* <!-- Item 2 --> */}
+            <div className={"hidden duration-700 ease-in-out"} data-carousel-item>
+              <Image width={200} height={200} src={'https://source.unsplash.com/random/800x800/?img=2'} className={"absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"} alt="..." />
+            </div>
+            {/* <!-- Item 3 --> */}
+            <div className={"hidden duration-700 ease-in-out"} data-carousel-item>
+              <Image width={200} height={200} src={'https://source.unsplash.com/random/800x800/?img=3'} className={"absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"} alt="..." />
+            </div>
+        </div>
+        {/* <!-- Slider indicators --> */}
+        <div className={"absolute z-30 flex space-x-3 -translate-x-1/2 bottom-3 left-1/2"}>
+            <button type="button" className={"w-1.5 h-1.5 rounded-full bg-slate-400"} aria-current="true" aria-label="Slide 1" data-carousel-slide-to="0"></button>
+            <button type="button" className={"w-1.5 h-1.5 rounded-full bg-slate-100"} aria-current="false" aria-label="Slide 2" data-carousel-slide-to="1"></button>
+            <button type="button" className={"w-1.5 h-1.5 rounded-full bg-slate-400"} aria-current="false" aria-label="Slide 3" data-carousel-slide-to="2"></button>
+        </div>
+        {/* <!-- Slider controls --> */}
+        <button type="button" className={"absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"} data-carousel-prev>
+            <span className={"inline-flex items-center justify-center w-8 h-8 rounded-full sm:w-10 sm:h-10 bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none"}>
+                <svg aria-hidden="true" className={"w-5 h-5 text-white sm:w-6 sm:h-6 dark:text-gray-800"} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7"></path></svg>
+                <span className={"sr-only"}>Previous</span>
+            </span>
+        </button>
+        <button type="button" className={"absolute top-0 right-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"} data-carousel-next>
+            <span className={"inline-flex items-center justify-center w-8 h-8 rounded-full sm:w-10 sm:h-10 bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none"}>
+                <svg aria-hidden="true" className={"w-5 h-5 text-white sm:w-6 sm:h-6 dark:text-gray-800"} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path></svg>
+                <span className={"sr-only"}>Next</span>
+            </span>
+        </button>
+    </div>
+  )
+}
+
+export function ListingCard({name, location, dates, price, images}: ListingCardProps) {
+
+  return (
+    <div className={"flex flex-col justify-items-stretch"}>
+      <Carousel />
+      <p className={'font-medium'}>{name}</p>
+      <p className={'font-light text-stone-500 text-sm'}>{location}</p>
+      <p className={'font-light text-stone-500 text-sm'}>{dates}</p>
+      <div className={'flex flex-row'}>
+        <p className={'font-medium'}>{price}</p>
+        <p className={'font-light ml-1'}> night</p>
+      </div>
+    </div>
+  )
+}
 
 export default function Home() {
   return (
@@ -39,63 +109,49 @@ export default function Home() {
           </div>
         </div>
 
-        <div className={styles.grid}>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Docs <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Find in-depth information about Next.js features and&nbsp;API.
-            </p>
-          </a>
-
-          <a
-            href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Learn <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Learn about Next.js in an interactive course with&nbsp;quizzes!
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Templates <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Discover and deploy boilerplate example Next.js&nbsp;projects.
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Deploy <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Instantly deploy your Next.js site to a shareable URL
-              with&nbsp;Vercel.
-            </p>
-          </a>
+        <div className={"grid w-full grid-cols-2 md:grid-cols-4 gap-12 md:gap-12"}>
+          <ListingCard 
+            name={"Cursor listing"}
+            location={"Cursor"}
+            dates={"2021-2022"}
+            price={"$1,000"}
+            images={["/cursorLogo.svg"]}
+          />
+          <ListingCard 
+            name={"Cursor listing"}
+            location={"Cursor"}
+            dates={"2021-2022"}
+            price={"$1,000"}
+            images={["/cursorLogo.svg"]}
+          />
+          <ListingCard 
+            name={"Cursor listing"}
+            location={"Cursor"}
+            dates={"2021-2022"}
+            price={"$1,000"}
+            images={["/cursorLogo.svg"]}
+          />
+          <ListingCard 
+            name={"Cursor listing"}
+            location={"Cursor"}
+            dates={"2021-2022"}
+            price={"$1,000"}
+            images={["/cursorLogo.svg"]}
+          />
+          <ListingCard 
+            name={"Cursor listing"}
+            location={"Cursor"}
+            dates={"2021-2022"}
+            price={"$1,000"}
+            images={["/cursorLogo.svg"]}
+          />
+          <ListingCard 
+            name={"Cursor listing"}
+            location={"Cursor"}
+            dates={"2021-2022"}
+            price={"$1,000"}
+            images={["/cursorLogo.svg"]}
+          />
         </div>
       </main>
     </>
