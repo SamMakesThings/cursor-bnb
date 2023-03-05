@@ -8,7 +8,7 @@ import { ListingCard } from '@/components/ListingCard'
 import { generateMultipleListings } from './api/generateMultipleListings'
 
 export default function Home() {
-  const [listings, setListings] = useState(generateMultipleListings(6))
+  const [listings, setListings] = useState(generateMultipleListings(10))
 
   return (
     <>
@@ -50,7 +50,7 @@ export default function Home() {
             }
             hasMore
             next={() => {
-              setListings([...listings, ...generateMultipleListings(12)])
+              setListings([...listings, ...generateMultipleListings(10)])
             }}
             loader={<h4>Loading...</h4>}
           >
