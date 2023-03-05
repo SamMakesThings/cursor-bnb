@@ -30,7 +30,7 @@ function generateMultipleListings(howMany: number) {
 }
 
 export default function Home() {
-  const [listings, setListings] = useState(generateMultipleListings(10))
+  const [listings, setListings] = useState(generateMultipleListings(6))
 
   return (
     <>
@@ -64,24 +64,31 @@ export default function Home() {
             </a>
           </div>
         </div>
-
-        <div
-          className={
-            'grid w-full grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6'
-          }
-        >
-          {listings.map((listing, index) => {
-            return (
-              <ListingCard
-                key={index}
-                name={listing.name}
-                location={listing.location}
-                dates={listing.dates}
-                price={listing.price}
-                images={listing.images}
-              />
-            )
-          })}
+        <div className={'w-full'}>
+          <InfiniteScroll
+            dataLength={listings.length}
+            className={
+              'grid w-full grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6'
+            }
+            hasMore
+            next={() => {
+              setListings([...listings, ...generateMultipleListings(12)])
+            }}
+            loader={<h4>Loading...</h4>}
+          >
+            {listings.map((listing, index) => {
+              return (
+                <ListingCard
+                  key={index}
+                  name={listing.name}
+                  location={listing.location}
+                  dates={listing.dates}
+                  price={listing.price}
+                  images={listing.images}
+                />
+              )
+            })}
+          </InfiniteScroll>
         </div>
       </main>
     </>
