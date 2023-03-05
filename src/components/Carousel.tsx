@@ -51,6 +51,7 @@ export function Carousel({ images }: { images: string[] }) {
               aria-current={isCurrentSlide}
               aria-label="Slide 1"
               data-carousel-slide-to="0"
+              onClick={() => setCurrentSlide(index)}
             ></button>
           )
         })}
